@@ -90,3 +90,24 @@ def hangman_stages(attempts):
         """
     ]
     return hangman_stages[attempts]
+
+def welcome_player():
+    """
+    Welcomes player and shares the rules of the game.
+    Expects name input to start the game.
+    """
+    print("""
+    Welcome to this evergreen game aka Hangman!
+
+    This Hangman game though is specified to check your knowledge about
+    the 50 states of the United States of America -
+    inspired by a particular Thanksgiving episode in Friends - if you know you know.
+
+    You will have 7 attempts to guess the state hidden behind
+    the blank lines.
+
+    Since some of the states constitute of 2 words, you have "space" as an option as well.
+
+    Good luck!   
+        """)
+    
