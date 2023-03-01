@@ -111,3 +111,19 @@ def welcome_player():
     Good luck!   
         """)
     
+    while True:
+        try:
+            player_name = input('Please enter your name: \n').upper()
+        except ValueError:
+            print(f'{player_name} contains other than letters. Please only type in letters.')
+        else:
+            if len(player_name) < 2:
+                print('Name has to contain more, than 2 characters.')
+                
+
+
+def clear():
+    """
+    Clears screen to facilitate clarity.
+    """
+    os.system('cls' if os.name == 'nt' else clear)
