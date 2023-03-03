@@ -91,6 +91,10 @@ def hangman_stages(attempts):
     ]
     return hangman_stages[attempts]
 
+"""
+Creating classes in order to generate custom-made validation processes.
+"""
+
 class CharacterException(Exception):
     """
     Base exception class.
@@ -151,9 +155,20 @@ def welcome_player():
     
     while True:
         try:
-            username = input('Please enter your name: \n').upper()
+            username = input('Please enter your name: \n').capitalize()
             CheckCharacter(username)
             CheckUsernameLength(username)
+
+            print(f'Hello {username},')
+            print("""           
+            ___      _______  _______  __   _______    _______  ___      _______  __   __  __  
+            |   |    |       ||       ||  | |       |  |       ||   |    |   _   ||  | |  ||  | 
+            |   |    |    ___||_     _||__| |  _____|  |    _  ||   |    |  |_|  ||  |_|  ||  | 
+            |   |    |   |___   |   |       | |_____   |   |_| ||   |    |       ||       ||  | 
+            |   |___ |    ___|  |   |       |_____  |  |    ___||   |___ |       ||_     _||__| 
+            |       ||   |___   |   |        _____| |  |   |    |       ||   _   |  |   |   __  
+            |_______||_______|  |___|       |_______|  |___|    |_______||__| |__|  |___|  |__|            
+            """)
         except Exception as e:
             print(e)
 
@@ -166,6 +181,5 @@ def clear():
 
 def main():
     welcome_player()
-    #clear()
 
 main()
