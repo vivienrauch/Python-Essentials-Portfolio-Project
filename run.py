@@ -1,6 +1,6 @@
 import random
 import os
-import words from words
+from words import words
 
 def hangman_stages(attempts):
     """
@@ -91,6 +91,46 @@ def hangman_stages(attempts):
     ]
     return hangman_stages[attempts]
 
+class CharacterException(Exception):
+    """
+    Base exception class.
+    """
+    pass
+
+class InvalidCharacter(CharacterException):
+    """
+    Raises invalid character error message.
+    """
+    def __init__(self):
+        print('Invalid input. Please use only alphanumeric characters.')
+
+class CheckCharacter(CharacterException):
+    """
+    Checks whether the entered character is alphanumeric.
+    If not, it raises the predefined InvalidCharacter error class.
+    """
+    def __init__(self, char):
+        if char.isalnum() is not True:
+            raise InvalidCharacter
+
+class LengthError(CharacterException):
+    """
+    Raises length error.
+    """
+    def __init__(self):
+        print('Username has to contain at least 3 letters and/or numbers.')
+
+class CheckUsernameLength(CharacterException):
+    """
+    Check username's length
+    and raises the above defined LengthError if it's less, than
+    3 characters long.
+    """
+    def __init__(self, username):
+        if len(username) < 3:
+            raise LengthError
+
+
 def welcome_player():
     """
     Welcomes player and shares the rules of the game.
@@ -106,20 +146,16 @@ def welcome_player():
     You will have 7 attempts to guess the state hidden behind
     the blank lines.
 
-    Since some of the states constitute of 2 words, you have "space" as an option as well.
-
     Good luck!   
         """)
     
     while True:
         try:
-            player_name = input('Please enter your name: \n').upper()
-        except ValueError:
-            print(f'{player_name} contains other than letters. Please only type in letters.')
-        else:
-            if len(player_name) < 2:
-                print('Name has to contain more, than 2 characters.')
-                
+            username = input('Please enter your name: \n').upper()
+            CheckCharacter(username)
+            CheckUsernameLength(username)
+        except Exception as e:
+            print(e)
 
 
 def clear():
@@ -127,3 +163,9 @@ def clear():
     Clears screen to facilitate clarity.
     """
     os.system('cls' if os.name == 'nt' else clear)
+
+def main():
+    welcome_player()
+    #clear()
+
+main()
