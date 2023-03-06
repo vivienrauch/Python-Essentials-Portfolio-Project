@@ -161,15 +161,15 @@ def welcome_player():
             CheckUsernameLength(username)
 
             print(f'Hello {username},')
-            print("""           
-             ___      _______  _______  __   _______    _______  ___      _______  __   __  __  
-            |   |    |       ||       ||  | |       |  |       ||   |    |   _   ||  | |  ||  | 
-            |   |    |    ___||_     _||__| |  _____|  |    _  ||   |    |  |_|  ||  |_|  ||  | 
-            |   |    |   |___   |   |       | |_____   |   |_| ||   |    |       ||       ||  | 
-            |   |___ |    ___|  |   |       |_____  |  |    ___||   |___ |       ||_     _||__| 
-            |       ||   |___   |   |        _____| |  |   |    |       ||   _   |  |   |   __  
-            |_______||_______|  |___|       |_______|  |___|    |_______||__| |__|  |___|  |__|            
-            """)
+            print("""                       
+                 _           _    _               _                _ 
+                | |     ___ | |_ ( )___    _ __  | |  __ _  _   _ | |
+                | |    / _ \| __||// __|  | '_ \ | | / _` || | | || |
+                | |___|  __/| |_   \__ \  | |_) || || (_| || |_| ||_|
+                |_____|\___| \__|  |___/  | .__/ |_| \__,_| \__, |(_)
+                                        |_|               |___/              
+                """)
+            clear()
             game(words)
         except Exception as e:
             print(e)
@@ -179,7 +179,7 @@ def clear():
     """
     Clears screen to facilitate clarity.
     """
-    os.system('cls' if os.name == 'nt' else clear)
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def get_words(words):
     
@@ -194,11 +194,8 @@ def game(words):
     """
     word = get_words(words)
     word_hidden = '_' * len(word)
-    if letter in word_hidden == ' ':
-        print(' ')
 
-    letters = set(word)
-    letters_guessed = set()
+    letters_guessed = []
     attempts = 7
     guessed = False
 
@@ -209,22 +206,25 @@ def game(words):
         
         player_guess = input('Please enter a letter: ').upper()
         
-        for letter in word_hidden:
-            print(letter, end = ' ')
+        for blank in word_hidden:
+            print(blank, end = ' ')
             print('\n')
-            print(f'You guessed: {letters_guessed} ')
+            print('You guessed: ' + ',' .join(letters_guessed))
 
             if len(player_guess) == 1 and player_guess.isalpha():
                 
                 if player_guess not in word:
+                    clear()
                     print(f'Sorry, {player_guess} is not in the word.')
                     attempts -= 1
                     letters_guessed.append(player_guess)
                 
                 elif player_guess in letters_guessed:
+                    clear()
                     print(f'You already guessed the letter {player_guess}. Please try another letter.')
                 
                 else:
+                    clear()
                     print(f'Great job! {player_guess} is in the word!')
                     letters_guessed.append(player_guess)
                     word_into_list = list(word_hidden)
@@ -232,21 +232,22 @@ def game(words):
                     
                     for i in ind:
                         word_into_list[i] = player_guess
-                    word_hidden = ''.join(word_into_list)
+                        word_hidden = ''.join(word_into_list)
                     
                     if '_' not in word_hidden:
                         guessed = True
             
             else:
+                clear()
                 print('Your guess is invalid.')
             
-            print(hangman_stages(attempts))
-            print('\n')
+        print(hangman_stages(attempts))
+        print('\n')
 
-            if guessed:
-                print(f'Congratulations {username}! You guessed the word!')
-            else:
-                print(f'Sorry, {username}, you are out of attempts. The word was: {word}')
+    if guessed:
+        print(f'Congratulations {username}! You guessed the word!')
+    else:
+        print(f'Sorry {username}, you are out of attempts. The word was: {word}')
 
 def main():
     
@@ -254,31 +255,31 @@ def main():
     game(words)
 
     while True:
-        play_again = input('Wanna play again? Y/N \n')
-        
-        if play_again.lower() == 'n':
-            print("""           
- _______  __   __  _______  __    _  ___   _    __   __  _______  __   __                      
-|       ||  | |  ||   _   ||  |  | ||   | | |  |  | |  ||       ||  | |  |                     
-|_     _||  |_|  ||  |_|  ||   |_| ||   |_| |  |  |_|  ||   _   ||  | |  |                     
-  |   |  |       ||       ||       ||      _|  |       ||  | |  ||  |_|  |                     
-  |   |  |       ||       ||  _    ||     |_   |_     _||  |_|  ||       |                     
-  |   |  |   _   ||   _   || | |   ||    _  |    |   |  |       ||       |                     
-  |___|  |__| |__||__| |__||_|  |__||___| |_|    |___|  |_______||_______|                     
- _______  _______  ______      _______  ___      _______  __   __  ___   __    _  _______  __  
-|       ||       ||    _ |    |       ||   |    |   _   ||  | |  ||   | |  |  | ||       ||  | 
-|    ___||   _   ||   | ||    |    _  ||   |    |  |_|  ||  |_|  ||   | |   |_| ||    ___||  | 
-|   |___ |  | |  ||   |_||_   |   |_| ||   |    |       ||       ||   | |       ||   | __ |  | 
-|    ___||  |_|  ||    __  |  |    ___||   |___ |       ||_     _||   | |  _    ||   ||  ||__| 
-|   |    |       ||   |  | |  |   |    |       ||   _   |  |   |  |   | | | |   ||   |_| | __  
-|___|    |_______||___|  |_|  |___|    |_______||__| |__|  |___|  |___| |_|  |__||_______||__| 
-                  """)
+        play_again = False
 
-        elif play_again.lower() != 'y':
-            print('Invalid answer. Please press either y (yes) or n (no).')
+        while not play_again:
+            play_again = input('Wanna play again? Y/N \n')
+            
+            if play_again.lower() == 'n':
+                print("""                          
+                       _____  _                    _                                 
+                      |_   _|| |__    __ _  _ __  | | __  _   _   ___   _   _        
+                        | |  | '_ \  / _` || '_ \ | |/ / | | | | / _ \ | | | |       
+                        | |  | | | || (_| || | | ||   <  | |_| || (_) || |_| |       
+                        |_|  |_| |_| \__,_||_| |_||_|\_\  \__, | \___/  \__,_|       
+                          __                       _       |___/    _                _ 
+                         / _|  ___   _ __   _ __  | |  __ _  _   _ (_) _ __    __ _ | |
+                        | |_  / _ \ | '__| | '_ \ | | / _` || | | || || '_ \  / _` || |
+                        |  _|| (_) || |    | |_) || || (_| || |_| || || | | || (_| ||_|
+                        |_|   \___/ |_|    | .__/ |_| \__,_| \__, ||_||_| |_| \__, |(_)
+                                           |_|               |___/            |___/     
+                    """)
 
-        else:
-            game()
+            elif play_again.lower() != 'y':
+                print('Invalid answer. Please press either y (yes) or n (no).')
+
+            else:
+                game()
 
 
 if __name__ == '__main__':
