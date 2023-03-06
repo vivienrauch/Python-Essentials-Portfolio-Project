@@ -169,6 +169,7 @@ def welcome_player():
             |       ||   |___   |   |        _____| |  |   |    |       ||   _   |  |   |   __  
             |_______||_______|  |___|       |_______|  |___|    |_______||__| |__|  |___|  |__|            
             """)
+            game()
         except Exception as e:
             print(e)
 
@@ -178,6 +179,50 @@ def clear():
     Clears screen to facilitate clarity.
     """
     os.system('cls' if os.name == 'nt' else clear)
+
+def get_words(words):
+    
+    word = random.choice(words)
+
+    return word.upper()
+
+
+def game(words):
+    """
+    
+    """
+    word = get_words(words)
+    word_hidden = '_' * len(word)
+    if letter in word_hidden == ' ':
+        print(' ')
+
+    letters = set(word)
+    letters_guessed = set()
+    attempts = 7
+    guessed = False
+
+    print(hangman_stages(attempts))
+    print('\n')
+
+    while not guessed and attempts > 0:
+        
+        player_guess = input('Please enter a letter: ').upper()
+        
+        for letter in word_hidden:
+            print(letter, end = ' ')
+            print('\n')
+            print(f'You guessed: {letters_guessed} ')
+
+            if len(player_guess) == 1 and player_guess.isalpha():
+                if player_guess not in word:
+                    print(f'Sorry, {player_guess} is not in the word.')
+                    attempts -= 1
+                    letter_guessed.append(player_guess)
+                elif player_guess in letters_guessed:
+                    print(f'You already guessed the letter {player_guess}. Please try another letter.')
+
+
+
 
 def main():
     welcome_player()
