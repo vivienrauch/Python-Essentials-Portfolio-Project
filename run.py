@@ -4,86 +4,86 @@ from words import words
 
 hangman_stages = [
 
-"""
-You ran out of attempts, game over!
-        __________
-        |       |
-        |       O
-        |      \|/
-        |       |  
-        |      / \\
-    ____|____  
-""",
-"""
-You have 1 more guess left!
-        __________
-        |       |
-        |       O
-        |      \\|/
-        |       |  
-        |      / 
-    ____|____  
-""",
-"""
-You have 2 more guesses left!
-        __________
-        |       |
-        |       O
-        |      \\|/
-        |       |  
-        |       
-    ____|____  
-""",
-"""
-You have 3 more guesses left!
-        __________
-        |       |
-        |       O
-        |      \\|/
-        |         
-        |       
-    ____|____  
-""",
-"""
-You have 4 more guesses left!
-        __________
-        |       |
-        |       O
-        |      \\|
-        |         
-        |       
-    ____|____  
-""",
-"""
-You have 5 more guesses left!
-        __________
-        |       |
-        |       O
-        |       |
-        |         
-        |       
-    ____|____  
-""",
-"""
-You have 6 more guesses left!
-        __________
-        |       |
-        |       O
-        |      
-        |         
-        |       
-    ____|____  
-""",
-"""
-You have 7 guesses to find out the correct word!
-        __________
-        |       |
-        |       
-        |      
-        |         
-        |       
-    ____|____  
-"""
+    """
+    Game over!
+            __________
+            |       |
+            |       O
+            |      \\|/
+            |       |  
+            |      / \\
+        ____|____  
+    """,
+    """
+    You have 1 more guess left!
+            __________
+            |       |
+            |       O
+            |      \\|/
+            |       |  
+            |      / 
+        ____|____  
+    """,
+    """
+    You have 2 more guesses left!
+            __________
+            |       |
+            |       O
+            |      \\|/
+            |       |  
+            |       
+        ____|____  
+    """,
+    """
+    You have 3 more guesses left!
+            __________
+            |       |
+            |       O
+            |      \\|/
+            |         
+            |       
+        ____|____  
+    """,
+    """
+    You have 4 more guesses left!
+            __________
+            |       |
+            |       O
+            |      \\|
+            |         
+            |       
+        ____|____  
+    """,
+    """
+    You have 5 more guesses left!
+            __________
+            |       |
+            |       O
+            |       |
+            |         
+            |       
+        ____|____  
+    """,
+    """
+    You have 6 more guesses left!
+            __________
+            |       |
+            |       O
+            |      
+            |         
+            |       
+        ____|____  
+    """,
+    """
+    You have 7 guesses to find out the correct word!
+            __________
+            |       |
+            |       
+            |      
+            |         
+            |       
+        ____|____  
+    """
 ]
 
 """
@@ -305,6 +305,7 @@ def game():
              """)
     else:
         print(f'Sorry {username}, you are out of attempts. The word was: {word}')
+        print(hangman_stages[hangman_stage_count])
         print('\n')
 
 def main():
