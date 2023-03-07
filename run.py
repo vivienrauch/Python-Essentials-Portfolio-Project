@@ -2,94 +2,89 @@ import random
 import os
 from words import words
 
-def hangman_stages(attempts):
-    """
-    Displays the stages of hangman based on the number of attempts the user has left.
-    """
-    hangman_stages = [
+hangman_stages = [
 
-        """
-        You ran out of attempts, game over!
-             __________
-             |       |
-             |       O
-             |      \|/
-             |       |  
-             |      / \\
-         ____|____  
-        """,
-        """
-        You have 1 more guess left!
-             __________
-             |       |
-             |       O
-             |      \\|/
-             |       |  
-             |      / 
-         ____|____  
-        """,
-        """
-        You have 2 more guesses left!
-             __________
-             |       |
-             |       O
-             |      \\|/
-             |       |  
-             |       
-         ____|____  
-        """,
-        """
-        You have 3 more guesses left!
-             __________
-             |       |
-             |       O
-             |      \\|/
-             |         
-             |       
-         ____|____  
-        """,
-        """
-        You have 4 more guesses left!
-             __________
-             |       |
-             |       O
-             |      \\|
-             |         
-             |       
-         ____|____  
-        """,
-        """
-        You have 5 more guesses left!
-             __________
-             |       |
-             |       O
-             |       |
-             |         
-             |       
-         ____|____  
-        """,
-        """
-        You have 6 more guesses left!
-             __________
-             |       |
-             |       O
-             |      
-             |         
-             |       
-         ____|____  
-        """,
-        """
-        You have 7 guesses to find out the correct word!
-             __________
-             |       |
-             |       
-             |      
-             |         
-             |       
-         ____|____  
-        """
-    ]
-    return hangman_stages[attempts]
+"""
+You ran out of attempts, game over!
+        __________
+        |       |
+        |       O
+        |      \|/
+        |       |  
+        |      / \\
+    ____|____  
+""",
+"""
+You have 1 more guess left!
+        __________
+        |       |
+        |       O
+        |      \\|/
+        |       |  
+        |      / 
+    ____|____  
+""",
+"""
+You have 2 more guesses left!
+        __________
+        |       |
+        |       O
+        |      \\|/
+        |       |  
+        |       
+    ____|____  
+""",
+"""
+You have 3 more guesses left!
+        __________
+        |       |
+        |       O
+        |      \\|/
+        |         
+        |       
+    ____|____  
+""",
+"""
+You have 4 more guesses left!
+        __________
+        |       |
+        |       O
+        |      \\|
+        |         
+        |       
+    ____|____  
+""",
+"""
+You have 5 more guesses left!
+        __________
+        |       |
+        |       O
+        |       |
+        |         
+        |       
+    ____|____  
+""",
+"""
+You have 6 more guesses left!
+        __________
+        |       |
+        |       O
+        |      
+        |         
+        |       
+    ____|____  
+""",
+"""
+You have 7 guesses to find out the correct word!
+        __________
+        |       |
+        |       
+        |      
+        |         
+        |       
+    ____|____  
+"""
+]
 
 """
 Creating classes in order to generate custom-made validation processes.
@@ -191,62 +186,61 @@ def get_words(words):
 
 
 def game():
-    """
-    
-    """
 
     word = get_words(words)
-
-    letters_in_word = set(word)
-    guessed_letters = set()
-
+    
+    guess_list = []
+    correct_guesses = []
+    incorrect_guesses = []
+    
     attempts = 7
+    hangman_stage_count = -1
 
-    print(hangman_stages(attempts))
+    while attempts > 0:
+        
+        blanks = ''
+        for letter in word:
+            if letter in correct_guesses:
+                blanks += letter
+            else:
+                blanks += '_ '
+        
+        if blanks == word:
+            break
 
-    while len(letters_in_word) > 0 and attempts > 0:
-        print('You guessed these letters so far: ', ''.join(guessed_letters))
-        print('\n')
-
-        list_of_letters = [letter if letter in guessed_letters else '_ ' for letter in word]
-
-        print('Your word to be guessed: ', ' '.join(list_of_letters))
-        print('\n')
+        print(hangman_stages[hangman_stage_count])
+        
+        print('Your word to be guessed', blanks)
 
         player_guess = input('Please enter a letter: \n').upper()
 
-        if player_guess not in guessed_letters:
-            if player_guess in letters_in_word:
-                letters_in_word.remove(player_guess)
-                clear()
-                guessed_letters.add(player_guess)
-                print(hangman_stages(attempts))
+        print(f'The letters you guessed so far are: ', ' '.join(guess_list))
 
-        elif player_guess in guessed_letters:
+        if player_guess in correct_guesses or player_guess in incorrect_guesses or player_guess in guess_list:
             clear()
             print(f'You already guessed the letter {player_guess}. Please try another letter.')
-            print(hangman_stages(attempts))
-
-        elif player_guess not in letters_in_word:
+            print('\n')
+        elif player_guess in word:
             clear()
-            guessed_letters.add(player_guess)
-            attempts -= 1
-            print(hangman_stages(attempts))
-
-            print(f'Sorry, {player_guess} is not in the word.')
-            
-
+            print('Awesome! The letter you guessed is correct!')
+            guess_list.append(player_guess)
+            correct_guesses.append(player_guess)
+            print('\n')
         else:
             clear()
-            print('Your guess is invalid.')    
-
-    if attempts == 0:
-        print(f'Sorry {username}, you are out of attempts. The word was: {word}')
-
-    else:
-        print(f'Congratulations {username}! You guessed the word: {word}! You rock!')
+            print(f'Sorry! {player_guess} is not in the word.')
+            hangman_stage_count -= 1
+            attempts -= 1
+            guess_list.append(player_guess)
+            incorrect_guesses.append(player_guess)
+            print('\n')
     
-        
+    if attempts > 0:
+        print(f'Congrats {username}, you guessed the word correctly! You, rock!')
+        print('\n')
+    else:
+        print(f'Sorry {username}, you are out of attempts. The word was: {word}')
+        print('\n')
 
 def main():
     
