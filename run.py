@@ -197,7 +197,7 @@ def game():
     hangman_stage_count = -1
 
     while attempts > 0:
-        
+
         blanks = ''
         for letter in word:
             if letter in correct_guesses:
@@ -213,6 +213,7 @@ def game():
         print('Your word to be guessed', blanks)
 
         player_guess = input('Please enter a letter: \n').upper()
+      #  CheckCharacter(player_guess) - to be further developed
 
         print(f'The letters you guessed so far are: ', ' '.join(guess_list))
 
@@ -244,35 +245,34 @@ def game():
 
 def main():
     
+    clear()
     welcome_player()
+    clear()
     game()
 
     while True:
-        play_again = False
+        play_again = input('Wanna play again? Y/N \n')
+        
+        if play_again.lower() == 'n':
+            print("""                          
+                     _____  _                    _                                 
+                    |_   _|| |__    __ _  _ __  | | __  _   _   ___   _   _        
+                      | |  | '_ \  / _` || '_ \ | |/ / | | | | / _ \ | | | |       
+                      | |  | | | || (_| || | | ||   <  | |_| || (_) || |_| |       
+                      |_|  |_| |_| \__,_||_| |_||_|\_\  \__, | \___/  \__,_|       
+                      __                       _       |___/    _                _ 
+                     / _|  ___   _ __   _ __  | |  __ _  _   _ (_) _ __    __ _ | |
+                    | |_  / _ \ | '__| | '_ \ | | / _` || | | || || '_ \  / _` || |
+                    |  _|| (_) || |    | |_) || || (_| || |_| || || | | || (_| ||_|
+                    |_|   \___/ |_|    | .__/ |_| \__,_| \__, ||_||_| |_| \__, |(_)
+                                       |_|               |___/            |___/     
+                """)
 
-        while not play_again:
-            play_again = input('Wanna play again? Y/N \n')
-            
-            if play_again.lower() == 'n':
-                print("""                          
-                       _____  _                    _                                 
-                      |_   _|| |__    __ _  _ __  | | __  _   _   ___   _   _        
-                        | |  | '_ \  / _` || '_ \ | |/ / | | | | / _ \ | | | |       
-                        | |  | | | || (_| || | | ||   <  | |_| || (_) || |_| |       
-                        |_|  |_| |_| \__,_||_| |_||_|\_\  \__, | \___/  \__,_|       
-                          __                       _       |___/    _                _ 
-                         / _|  ___   _ __   _ __  | |  __ _  _   _ (_) _ __    __ _ | |
-                        | |_  / _ \ | '__| | '_ \ | | / _` || | | || || '_ \  / _` || |
-                        |  _|| (_) || |    | |_) || || (_| || |_| || || | | || (_| ||_|
-                        |_|   \___/ |_|    | .__/ |_| \__,_| \__, ||_||_| |_| \__, |(_)
-                                           |_|               |___/            |___/     
-                    """)
+        elif play_again.lower() != 'y':
+            print('Invalid answer. Please press either y (yes) or n (no).')
 
-            elif play_again.lower() != 'y':
-                print('Invalid answer. Please press either y (yes) or n (no).')
-
-            else:
-                game()
+        else:
+            game()
 
 
 if __name__ == '__main__':
