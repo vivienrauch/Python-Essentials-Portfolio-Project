@@ -15,7 +15,7 @@ def hangman_stages(attempts):
              |       O
              |      \|/
              |       |  
-             |      / \
+             |      / \\
          ____|____  
         """,
         """
@@ -23,7 +23,7 @@ def hangman_stages(attempts):
              __________
              |       |
              |       O
-             |      \|/
+             |      \\|/
              |       |  
              |      / 
          ____|____  
@@ -33,7 +33,7 @@ def hangman_stages(attempts):
              __________
              |       |
              |       O
-             |      \|/
+             |      \\|/
              |       |  
              |       
          ____|____  
@@ -43,7 +43,7 @@ def hangman_stages(attempts):
              __________
              |       |
              |       O
-             |      \|/
+             |      \\|/
              |         
              |       
          ____|____  
@@ -53,7 +53,7 @@ def hangman_stages(attempts):
              __________
              |       |
              |       O
-             |      \|
+             |      \\|
              |         
              |       
          ____|____  
@@ -167,9 +167,9 @@ def welcome_player():
                 | |    / _ \| __||// __|  | '_ \ | | / _` || | | || |
                 | |___|  __/| |_   \__ \  | |_) || || (_| || |_| ||_|
                 |_____|\___| \__|  |___/  | .__/ |_| \__,_| \__, |(_)
-                                        |_|               |___/              
+                                          |_|               |___/              
                 """)
-            clear()
+           
             game()
         except Exception as e:
             print(e)
@@ -220,23 +220,25 @@ def game():
                 letters_in_word.remove(player_guess)
                 clear()
                 guessed_letters.add(player_guess)
+                print(hangman_stages(attempts))
 
         elif player_guess in guessed_letters:
             clear()
             print(f'You already guessed the letter {player_guess}. Please try another letter.')
+            print(hangman_stages(attempts))
 
         elif player_guess not in letters_in_word:
             clear()
+            guessed_letters.add(player_guess)
             attempts -= 1
+            print(hangman_stages(attempts))
 
             print(f'Sorry, {player_guess} is not in the word.')
-            guessed_letters.add(player_guess)
+            
 
         else:
             clear()
-            print('Your guess is invalid.')
-
-        print(hangman_stages(attempts))
+            print('Your guess is invalid.')    
 
     if attempts == 0:
         print(f'Sorry {username}, you are out of attempts. The word was: {word}')
@@ -244,6 +246,7 @@ def game():
     else:
         print(f'Congratulations {username}! You guessed the word: {word}! You rock!')
     
+        
 
 def main():
     
