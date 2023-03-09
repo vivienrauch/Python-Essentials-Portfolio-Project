@@ -5,6 +5,10 @@ The game is built with Python and deployed in a mock terminal which was built by
 
 ## Live Site
 
+https://hangmangame-pp3.herokuapp.com/
+
+![amiresponsive](docs/amiresponsive.jpg)
+
 ## Repository
 
 # Table of Contents
@@ -151,7 +155,7 @@ I'm not aware of any bugs that interfere with the program at the moment.
 
 # **Deployment**
 
-This project is deployed on [Heroku](https://heroku.com).
+This project is deployed on [Heroku](https://hangmangame-pp3.herokuapp.com/).
 
 First and foremost, if your program has sensitive information that you saved in your gitignore file, you have to add it during the process of deployment in order to succeed.
 
