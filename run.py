@@ -88,7 +88,18 @@ hangman_stages = [
 
 """
 Creating classes in order to generate custom-made validation processes.
+
+I wanted to implement some sort of class usage in this game,
+so I came across this tutorial:
+https://www.scaler.com/topics/user-defined-exception-in-python/
+(also credited in the README file)
+and I implemented its information into the context of this game.
+
+I'm aware that the CheckCharacter class works more like a function
+than a classic class but I wanted to play around with
+the different functionalities.
 """
+
 
 class CharacterException(Exception):
     """
@@ -96,12 +107,14 @@ class CharacterException(Exception):
     """
     pass
 
+
 class InvalidCharacter(CharacterException):
     """
     Raises invalid character error message.
     """
     def __init__(self):
         print('Invalid input. Please only use letters.')
+
 
 class CheckCharacter(CharacterException):
     """
@@ -112,6 +125,7 @@ class CheckCharacter(CharacterException):
         if char.isalpha() is not True:
             raise InvalidCharacter
 
+
 class UsernameLengthError(CharacterException):
     """
     Raises length error when username entered is too short.
@@ -119,12 +133,14 @@ class UsernameLengthError(CharacterException):
     def __init__(self):
         print('Username has to contain at least 3 letters and/or numbers.')
 
+
 class InputLengthError(CharacterException):
     """
     Raises length error when player guess input is more, than 1 character.
     """
     def __init__(self):
         print('Please only enter one letter at a time.')
+
 
 class CheckUsernameLength(CharacterException):
     """
@@ -135,6 +151,7 @@ class CheckUsernameLength(CharacterException):
     def __init__(self, username):
         if len(username) < 3:
             raise UsernameLengthError
+
 
 class CheckInputLength(CharacterException):
     """
@@ -153,10 +170,10 @@ def welcome_player():
     """
     print("""
        __        __     _                              
-       \ \      / /___ | |  ___  ___   _ __ ___    ___ 
-        \ \ /\ / // _ \| | / __|/ _ \ | '_ ` _ \  / _ \\
-         \ V  V /|  __/| || (__| (_) || | | | | ||  __/
-          \_/\_/  \___||_| \___|\___/ |_| |_| |_| \___|
+       \\ \\      / /___ | |  ___  ___   _ __ ___    ___ 
+        \\ \\ /\\ / // _ \\| | / __|/ _ \ | '_ ` _ \\  / _ \\
+         \\ V  V /|  __/| || (__| (_) || | | | | ||  __/
+          \\_/\\_/  \___||_| \___|\___/ |_| |_| |_| \___|
                                                        
         to this evergreen game aka Hangman!
 
@@ -172,7 +189,7 @@ def welcome_player():
     
     while True:
         """
-        tries for alphanumerical username input with minimum length of
+        Tries for alpha username input with minimum length of
         2 characters, otherwise raises the appropriate error defined
         in the above classes. 
         """
@@ -188,9 +205,9 @@ def welcome_player():
             print("""                       
                  _           _    _               _                _ 
                 | |     ___ | |_ ( )___    _ __  | |  __ _  _   _ | |
-                | |    / _ \| __||// __|  | '_ \ | | / _` || | | || |
-                | |___|  __/| |_   \__ \  | |_) || || (_| || |_| ||_|
-                |_____|\___| \__|  |___/  | .__/ |_| \__,_| \__, |(_)
+                | |    / _ \\| __||// __|  | '_ \\ | | / _` || | | || |
+                | |___|  __/| |_   \\__ \  | |_) || || (_| || |_| ||_|
+                |_____|\\___| \\__|  |___/  | .__/ |_| \\__,_| \\__, |(_)
                                           |_|               |___/              
                 """)
            
@@ -206,6 +223,7 @@ def clear():
     """
     os.system('cls' if os.name == 'nt' else 'clear')
 
+
 def get_words(words):
     
     """
@@ -219,7 +237,8 @@ def get_words(words):
 
     return word.upper()
 
-def game():
+
+def play_game():
 
     """
     The player has 7 attempts to guess the correct word.
@@ -260,9 +279,14 @@ def game():
 
         player_guess = input('Please enter a letter: \n').upper()
 
-        if player_guess in correct_guesses or player_guess in incorrect_guesses or player_guess in guess_list:
+        if (player_guess in correct_guesses 
+                or player_guess in incorrect_guesses 
+                or player_guess in guess_list):
             clear()
-            print(f'You already guessed the letter {player_guess}. Please try another letter.')
+            print(
+                f"""You already guessed the letter {player_guess}.
+                Please try another letter."""
+                )
             print('\n')
         elif player_guess in word:
             clear()
@@ -288,15 +312,17 @@ def game():
                 print(e)               
     
     if attempts > 0:
-        print(f'Congrats {username}, you guessed the word correctly! You rock!')
+        print(
+            f'Congrats {username}, you guessed the word correctly! You rock!'
+            )
         print("""
                                  .''.
-       .''.             *''*    :_\/_:     .
-      :_\/_:   .    .:.*_\/_*   : /\ :  .'.:.'.
-  .''.: /\ : _\(/_  ':'* /\ *  : '..'.  -=:o:=-
- :_\/_:'.:::. /)\*''*  .|.* '.\'/.'_\(/_'.':'.'
- : /\ : :::::  '*_\/_* | |  -= o =- /)\    '  *
-  '..'  ':::'   * /\ * |'|  .'/.\'.  '._____
+       .''.             *''*    :_\\/_:     .
+      :_\\/_:   .    .:.*_\\/_*   : /\\ :  .'.:.'.
+  .''.: /\\ : _\(/_  ':'* /\\ *  : '..'.  -=:o:=-
+ :_\/_:'.:::. /)\\*''*  .|.* '.\\'/.'_\\(/_'.':'.'
+ : /\\ : :::::  '*_\\/_* | |  -= o =- /)\\    '  *
+  '..'  ':::'   * /\\ * |'|  .'/.\\'.  '._____
       *        __*..* |  |     :      |.   |' .---"|
        _*   .-'   '-. |  |     .--'|  ||   | _|    |
     .-'|  _.|  |    ||   '-__  |   |  |    ||      |
@@ -304,9 +330,12 @@ def game():
  ___|  '-'     '    ""       '-'   '-.'    '`      |___
              """)
     else:
-        print(f'Sorry {username}, you are out of attempts. The word was: {word}')
+        print(
+            f'Sorry {username}, you are out of attempts. The word was: {word}'
+            )
         print(hangman_stages[hangman_stage_count])
         print('\n')
+
 
 def main():
     
@@ -319,7 +348,7 @@ def main():
     clear()
     welcome_player()
     clear()
-    game()
+    play_game()
 
     while True:
         play_again = input('Wanna play again? Y/N \n')
@@ -329,14 +358,14 @@ def main():
             print("""                          
                      _____  _                    _                                 
                     |_   _|| |__    __ _  _ __  | | __  _   _   ___   _   _        
-                      | |  | '_ \  / _` || '_ \ | |/ / | | | | / _ \ | | | |       
+                      | |  | '_ \\  / _` || '_ \\ | |/ / | | | | / _ \\ | | | |       
                       | |  | | | || (_| || | | ||   <  | |_| || (_) || |_| |       
-                      |_|  |_| |_| \__,_||_| |_||_|\_\  \__, | \___/  \__,_|       
-                      __                       _       |___/    _                _ 
+                      |_|  |_| |_| \\__,_||_| |_||_|\_\\  \\__, | \\___/  \__,_|       
+                      __                       _        |___/   _                _ 
                      / _|  ___   _ __   _ __  | |  __ _  _   _ (_) _ __    __ _ | |
-                    | |_  / _ \ | '__| | '_ \ | | / _` || | | || || '_ \  / _` || |
+                    | |_  / _ \\ | '__| | '_ \\ | | / _` || | | || || '_ \\  / _` || |
                     |  _|| (_) || |    | |_) || || (_| || |_| || || | | || (_| ||_|
-                    |_|   \___/ |_|    | .__/ |_| \__,_| \__, ||_||_| |_| \__, |(_)
+                    |_|   \\___/ |_|    | .__/ |_| \\__,_| \\__, ||_||_| |_| \\__, |(_)
                                        |_|               |___/            |___/     
                 """)
             break
@@ -346,7 +375,7 @@ def main():
 
         else:
             clear()
-            game()
+            play_game()
 
 
 if __name__ == '__main__':

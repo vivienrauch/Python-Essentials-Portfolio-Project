@@ -10,24 +10,24 @@ The game is built with Python and deployed in a mock terminal which was built by
 # Table of Contents
 
 - [UX Design](#ux-design)
-    * [Objective](#objective---stragety-plane)
+    * [Objective](#objective)
         * [User Stories](#user-stories)
-    * [Features](#features---scope-skeleton--structure-plane)
+    * [Features](#features)
         * [Flowchart](#flowchart)
         * [Existing Features](#existing-features)
         * [Future Features](#future-features)
 - [Testing](#testing)
-      * [Python](#python)
 * [Bugs](#bugs)
     * [Fixed Bugs](#fixed-bugs)
     * [Unfixed Bugs](#unfixed-bugs)
 * [Technologies Used](#technologies-used)
-* [Deployment](#deployment---surface-plane)
+* [Deployment](#deployment)
+* [Development](#development)
 * [Credits](#credits)
 
 # UX Design
 
-## **Objective** - *Stragety Plane*
+## **Objective**
 
 My objective was to recreate a retro feel to this game while maintaining clarity and intuitive navigation.
 
@@ -47,7 +47,7 @@ As a user, I:
 - want to be stopped when I enter something I shouldn't be entering
 - want to have the option to play again or exit the game once the round is over
 
-## **Features** - *Scope, skeleton & structure plane*
+## **Features**
 
 ### **Flowchart**
 
@@ -125,7 +125,8 @@ In the future I'd like to implement the possibility to guess expressions and not
 
 # __Testing__
 
-During testing I got errors mostly about the whitespaces due to the ascii graphics I used in the game.
+The testing came back with errors regarding the ASCII arts that I used: *invalid escape sequence*, *line too long* and *whitespace* issues.
+I went in the code and corrected the issues that didn't mess up the output of the ASCII art, but there are some that remained.
 Other than that, I got a few long lines.
 
 ![testing](docs/pep8tester.jpg)
@@ -142,12 +143,13 @@ I'm not aware of any bugs that interfere with the program at the moment.
 
 # **Technologies Used**
 
+  - Python
   - [Heroku](https://heroku.com) - for deployment
   - [LucidApp](https://lucid.app/users/login#/login) - for creating the flowchart
   - [ASCII Art Generator](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20)
     and [ASCII Art](https://asciiart.website/index.php?art=holiday/4th%20of%20july) - for the retro game graphics ('Ivrit' style used) and the fireworks graphics.
 
-# **Deployment** - *Surface plane*
+# **Deployment**
 
 This project is deployed on [Heroku](https://heroku.com).
 
@@ -170,6 +172,18 @@ First and foremost, if your program has sensitive information that you saved in 
   - Click on *GitHub* to connect
   - Find the repository you want to connect
   - Then you can choose between *Automatic Deployment* or *Manual Deployment* 
+
+# Development
+
+You can get up and running by:
+
+- You can find the project on the
+  [GitHub Repository](https://github.com/vivienrauch/Python-Essentials-Portfolio-Project)
+- but open it up by going to the [GitPod Workspaces](https://gitpod.io/workspaces), where it's pinned
+- run.py where the program runs
+- words.py where the word list is available
+- if you want to create a new project use the [CI template](https://github.com/Code-Institute-Org/python-essentials-template)
+
 
 # __Credits__
 
